@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>STRUGGLE</title>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/layui/layui.js"></script>
+    <link rel="stylesheet" href="../static/layui/css/layui.css" media="all" >
+
+    <style >
+        /*img.layedit-tool-image{height: 600px}*/
+        div.loader{
+            background-color: #393D49;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: large;
+
+        }
+        div.guolv{
+            background-color: white;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: xx-large;
+            color: #007DDB;
+        }
+        div.set_bg{
+            width: 100%;
+            height: 300px;
+            background: url("../static/image/bg.jpg");
+            background-position-x: 0px;
+            background-position-y: 0px;
+            background-repeat-x: no-repeat;
+            background-repeat-y: no-repeat;
+            background-attachment: initial;
+            background-origin: initial;
+            background-clip: initial;
+            background-color: initial;
+            background-size: cover;
+        }
+        p.lunbo_stype{
+            line-height: 50px;
+            text-align: center;
+            color: white;
+            font-size:xx-large;
+        }
+        p.lunbo_stype1{
+            line-height: 50px;
+            text-align: center;
+            color: white;
+            font-size: large;
+        }
+        div.set_bg2{
+            width: 100%;
+            height: 300px;
+            background-image: url("../static/image/dott.png");
+            background-position-x: 0px;
+            background-position-y: 0px;
+            background-repeat-x: repeat;
+            background-repeat-y: repeat;
+            background-attachment: initial;
+            background-origin: initial;
+            background-clip: initial;
+
+
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="layui-nav">
+    <ul class="layui-nav" lay-filter="">
+        <li class="layui-nav-item"><a href="/">首页</a></li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">智能识别</a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                <dd><a href="/identification">ocr识别</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item"><a href="">数据采集</a></li>
+        <li class="layui-nav-item"><a href="">解决方案</a></li>
+        <!--<li class="layui-nav-item">-->
+        <!--<a href="javascript:;">解决方案</a>-->
+        <!--<dl class="layui-nav-child"> &lt;!&ndash; 二级菜单 &ndash;&gt;-->
+        <!--<dd><a href="">移动模块</a></dd>-->
+        <!--<dd><a href="">后台模版</a></dd>-->
+        <!--<dd><a href="">电商平台</a></dd>-->
+        <!--</dl>-->
+        </li>
+        <li class="layui-nav-item"><a href="">社区</a></li>
+    </ul>
+
+    <script>
+        //注意：导航 依赖 element 模块，否则无法进行功能性操作
+        layui.use('element', function(){
+            var element = layui.element;
+
+            //…
+        });
+    </script>
+</div>
+<div class="guolv">ORC识别</div>
+<!--首页背景图-->
+<div class="set_bg" >
+    <div class="set_bg2" >
+    </div>
+
+</div>
+<div class="guolv"></div>
+<div class="upload_img" style="margin: 0 auto;text-align:center ;">
+    <div class="layui-upload-drag" id="img_file" >
+        <i class="layui-icon"></i>
+        <p>点击上传，或将图片拖拽到此处</p>
+    </div>
+    <div class="guolv"></div>
+    <p><button class="layui-btn" id="down_bt">识别内容</button></p>
+    <div class="guolv"></div>
+    <div id="img_text">
+         <textarea rows="20" cols="100" id="chatText" style="text-align: center;">
+            </textarea>
+    </div>
+</div>
+<script>
+    layui.use('upload', function(){
+        var $ = layui.jquery
+                ,upload = layui.upload,layer = layui.layer;
+
+        //拖拽上传
+        upload.render({
+            elem: '#img_file'
+            ,method:'post'
+            ,url: '/img_upload/'
+            ,accept:'file'
+            ,exts: 'bmp|jpg|png|tiff|gif|pcx|tga|exif|fpx|svg|psd|cdr|pcd|dxf|ufo|eps|ai|raw|WMF|webp'
+            ,done: function(res){
+                console.log(res)
+                layer.msg('上传成功');
+                $("#chatText").text(res['ocr_data']);
+
+            }
+            ,error: function(){
+                layer.msg('上传失败，请检查图片格式是否为：bmp|jpg|png|tiff|gif|pcx|tga|exif|fpx|svg|psd|cdr|pcd|dxf|ufo|eps|ai|raw|WMF|webp');
+            }
+
+        });
+    });
+
+</script>
+
+
+<div class="guolv"></div>
+<!--底部-->
+<div class="layui-fluid" style="padding: 0;">
+    <div class="loader" >
+        <p class="loader_text" >@2018 测试</p>
+    </div>
+</div>
+
+</body>
+</html>
